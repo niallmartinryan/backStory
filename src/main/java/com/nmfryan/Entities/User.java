@@ -3,24 +3,29 @@ package com.nmfryan.Entities;
 import java.util.Objects;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "USER")
 public class User {
 
     private @Id @GeneratedValue(strategy = GenerationType.AUTO) UUID id;
+
     private String firstName;
+
     private String secondName;
+
     private String email;
 
 
-    User(String firstName, String secondName, String email){
+    public User(String firstName, String secondName, String email){
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
+    }
+
+    public User() {
+
     }
 
     public UUID getId(){ return id; }
@@ -46,10 +51,10 @@ public class User {
             return true;
         if (!(o instanceof User))
             return false;
-        User user = (User) o;
-        return Objects.equals(this.id, user.id) && Objects.equals(this.firstName, user.firstName)
-                && Objects.equals(this.secondName, user.secondName)
-                && Objects.equals(this.email, user.email);
+        User person = (User) o;
+        return Objects.equals(this.id, person.id) && Objects.equals(this.firstName, person.firstName)
+                && Objects.equals(this.secondName, person.secondName)
+                && Objects.equals(this.email, person.email);
     }
 
     @Override
