@@ -17,7 +17,6 @@ public class User {
 
     private String email;
 
-
     public User(String firstName, String secondName, String email){
         this.firstName = firstName;
         this.secondName = secondName;
@@ -42,7 +41,7 @@ public class User {
 
     public String getEmail(){ return email;}
 
-    public void setEmail(){ this.email = email;}
+    public void setEmail(String email){ this.email = this.email;}
 
     @Override
     public boolean equals(Object o) {
