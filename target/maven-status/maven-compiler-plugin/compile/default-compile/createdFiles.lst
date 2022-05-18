@@ -1,0 +1,4 @@
+com\nmfryan\Entities\Person.class
+com\nmfryan\Utility\SchemaGen\SchemaGeneration.class
+com\nmfryan\Repositories\UserRepository.class
+com\nmfryan\Utility\BackStory.class
