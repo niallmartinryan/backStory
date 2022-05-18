@@ -1,0 +1,1 @@
+INSERT INTO USER (id, first_name, second_name, email) VALUES (UUID(), 'lala', 'lala', 'lala'), (UUID(), 'lolo', 'lolo', 'lolo');
