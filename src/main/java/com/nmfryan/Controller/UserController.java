@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.nmfryan.Assembly.UserAssembly;
 import com.nmfryan.Entities.User;
 import com.nmfryan.Exceptions.UserNotFoundException;
 import com.nmfryan.Repositories.UserRepository;
@@ -26,21 +27,21 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserController {
 
     private final UserRepository repository;
+    private final UserAssembly assembler;
 
-    UserController(UserRepository repository) {
+    UserController(UserRepository repository, UserAssembly assembler) {
         this.repository = repository;
+        this.assembler = assembler;
     }
 
     @GetMapping("/Users")
     public CollectionModel<EntityModel<User>> all() {
 
-        List<EntityModel<User>> Users = repository.findAll().stream()
-                .map(User -> EntityModel.of(User,
-                        linkTo(methodOn(UserController.class).one(User.getId())).withSelfRel(),
-                        linkTo(methodOn(UserController.class).all()).withRel("Users")))
+        List<EntityModel<User>> users = repository.findAll().stream()
+                .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(Users, linkTo(methodOn(UserController.class).all()).withSelfRel());
+        return CollectionModel.of(users, linkTo(methodOn(UserController.class).all()).withSelfRel());
     }
 
     @PostMapping("/Users")
@@ -51,12 +52,13 @@ public class UserController {
     @GetMapping("/Users/{id}")
     public EntityModel<User> one(@PathVariable UUID id) {
 
-        User User = repository.findById(id) //
+        User user = repository.findById(id) //
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        return EntityModel.of(User, //
-                linkTo(methodOn(UserController.class).one(id)).withSelfRel(),
-                linkTo(methodOn(UserController.class).all()).withRel("Users"));
+//        return EntityModel.of(User, //
+//                linkTo(methodOn(UserController.class).one(id)).withSelfRel(),
+//                linkTo(methodOn(UserController.class).all()).withRel("Users"));
+        return assembler.toModel(user);
     }
 
     @PutMapping("/Users/{id}")

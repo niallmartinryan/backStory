@@ -1,6 +1,5 @@
 com\nmfryan\Controller\UserController.class
 com\nmfryan\Entities\User.class
 com\nmfryan\Repositories\UserRepository.class
-com\nmfryan\Utility\BackStory.class
 com\nmfryan\Advice\UserNotFoundAdvice.class
 com\nmfryan\Exceptions\UserNotFoundException.class

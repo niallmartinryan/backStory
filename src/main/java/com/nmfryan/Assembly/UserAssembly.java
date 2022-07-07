@@ -9,12 +9,12 @@ import org.springframework.hateoas.EntityModel;
         import org.springframework.stereotype.Component;
 
 @Component
-class UserAssembly implements RepresentationModelAssembler<User, EntityModel<User>> {
+public class UserAssembly implements RepresentationModelAssembler<User, EntityModel<User>> {
 
     @Override
     public EntityModel<User> toModel(User User) {
 
-        return EntityModel.of(User, //
+        return EntityModel.of(User,
                 linkTo(methodOn(UserController.class).one(User.getId())).withSelfRel(),
                 linkTo(methodOn(UserController.class).all()).withRel("Users"));
     }
